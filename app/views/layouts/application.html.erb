@@ -27,23 +27,31 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-          	<li><%= link_to "Your Feed",root_path %></li>
-            <li ><%= link_to 'All Tweets', tweets_path %><span class="sr-only">(current)</span></a></li>
-            <li><%= link_to "New Tweet", new_tweet_path %></li>
 
-            <!-- Checks to see if user is signed in and gives them a signout link and a greeting -->
-            <% if user_signed_in? %>
-              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-              </li>
-              <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-              <li>Welcome @<%= current_user.username %></li>
+          	<li><%= link_to "Your Feed", root_path %></li>
+           <ul class="nav navbar-nav navbar-right">
+         <li><%= link_to "All Tweets", tweets_path %></li>
 
-              <% if current_user.avatar.url != nil %>
-                 
-                <li><%= image_tag current_user.avatar.url, class: "thumb" %></li>
-              <% end %> 
-         
-            <% end %>
+          <% if user_signed_in? %>
+
+          
+            <li><%= link_to "Compose New Tweet", new_tweet_path %></li>
+            <li><%= link_to "My User Page", show_user_path(id: current_user.id) %></li>
+            
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <% if current_user.avatar.blank? == false %>
+                  <%= image_tag current_user.avatar.url, size:25, class: "user-pic-nav img-circle" %>
+                <% end %> 
+                @<%= current_user.username %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
           </ul>
 
           
@@ -56,8 +64,40 @@
     <!-- End of Nav bar -->
 
 
-  	<div class='container'>
-    	<%= yield %>	
-    </div>
+  	<div class="container">
+    <% if user_signed_in? %>
+      <div class="row" >
+        <div class="col-lg-3">
+          <div class="well" >
+          
+          <!-- This side of the page will contain current_user profile information which will appear on every page -->
+            <center>
+              <p><%= image_tag current_user.avatar.url, class: "show-pic img-circle" %></p>
+              <h4>You are currently logged in as: </h4>
+              <p><strong><%= link_to current_user.name, show_user_path(id: current_user.id) %></strong> @<%= current_user.username %></p>
+              <p>Location: <strong><%= current_user.location %></strong></p>
+              
+
+            </center>
+    
+          </div>
+        </div>
+       <div class="col-lg-6">
+          <div class="well"> 
+            <%= yield %>
+         </div>
+         </div> 
+         <div class="col-lg-3"> 
+          <div class="well">
+           <h3>What's hot now!</h3>
+            
+              
+          </div>
+          </div>
+          <% else %>
+            <%= yield %>
+          <% end %> 
+        </div>
+    </div> 
   </body>
 </html>

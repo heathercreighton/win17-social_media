@@ -5,7 +5,7 @@
 <p><%= image_tag @tweet.user.avatar.url, class: 'show-pic' %></p>
   
 <h2>@<%= link_to @tweet.user.username, show_user_path(id: @tweet.user_id) %> said...</h2>
-
+<p> <%= time_ago_in_words(@tweet.created_at) %> ago</p>
 <div class="well">
 	<p>
   	<%= @tweet.message %>

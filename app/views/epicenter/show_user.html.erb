@@ -12,15 +12,23 @@
 	<%else %>
 			<% if current_user.id != @user.id %>
 				<%= link_to 'Follow', now_following_path(id: @user.id), class: 'btn btn-primary' %>
+				<% else %>
+            <%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
+                <%= f.text_field :message, class: "form-control" %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.submit "New Tweet", class: "btn btn-primary" %>
+            <% end %>
 			<% end %>
 		<% end %>
 
 </p>
 
 
+
+
 <div>
 	<% @user.tweets.each do |tweet| %>
-		<p>@<%= @user.username %></p>
+		<p><strong><%= time_ago_in_words(local_time(tweet.created_at)) %> ago,  @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %></strong> said...</p>
 		<p><%= tweet.message %></p>
 	<% end %>	
 </div>

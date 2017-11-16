@@ -14,11 +14,15 @@
  *= require_self
  */
 
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'font-awesome';
 
 
+
+
+/* #a4a6b2 - gray color for wells*/
 .thumb{
 	width: 50px;
 	height: 50px;
@@ -29,3 +33,25 @@
 	height: 200px;
 
 }
+
+body{
+	background: beige;
+
+}
+
+
+.well{
+	background: #a4a6b2 ;
+	
+}
+
+.well-doc{
+
+	background: white;
+}
+
+.login {
+height: 500px;
+
+}
+

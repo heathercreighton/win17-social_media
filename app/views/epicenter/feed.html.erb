@@ -1,13 +1,40 @@
-<h1>Welcome @<%= current_user.username %></h1>
 
 
-<h3> Here is what your friends are talking about...</h3>
 
-<div>
+
+<h4> Hey <strong><%= current_user.username %>! </strong> Here is what your friends are talking about...</h4>
+
+
+<%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
+	  <%= f.text_field :message, class: "form-control" %>
+	  <%= f.hidden_field :user_id, value: current_user.id %>
+	  <%= f.submit "New Tweet", class: "btn btn-primary" %>
+<% end %>
+
+	<br>
+	<br>
+
+
 <% @following_tweets.each do |tweet| %>
-	<div>
-		<p><%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>said...</p>
-		<p><%= tweet.message.html_safe %></p>
-	</div>	
+	<div class="well  well-doc" >
+		<div class="media">
+		  <div class="media-left media-top">
+		    <%= image_tag tweet.user.avatar.url, class: "img-circle thumb"%>
+		  </div>
+		  <div class="media-body">
+		    <h5 class="media-heading">
+					<strong><%= time_ago_in_words(local_time(tweet.created_at)) %> ago, @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %></strong> said... </h5>
+				<p><%= tweet.message.html_safe %></p>
+
+				<% if current_user.id == tweet.user.id %>
+		        	
+		       
+		        	<%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+	   <% end %>	
+			</div>
+
+		</div>
+		</div>
 	<% end %>	
-</div>
+
+
