@@ -16,7 +16,7 @@
     <% @tweets.each do |tweet| %>
       <tr>
         <td><%= image_tag tweet.user.avatar.url, class: 'thumb' %></td>
-        <td><%= tweet.message %></td>
+        <td><%= tweet.message.html_safe %></td>
         <td>@<%= link_to tweet.user.username, show_user_path(id: tweet.user_id)%></td>
         <td><%= link_to 'Show', tweet, class: 'btn btn-info' %></td>
         <td><%= link_to 'Edit', edit_tweet_path(tweet), class: 'btn btn-info' %></td>

@@ -29,6 +29,6 @@
 <div>
 	<% @user.tweets.each do |tweet| %>
 		<p><strong><%= time_ago_in_words(local_time(tweet.created_at)) %> ago,  @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %></strong> said...</p>
-		<p><%= tweet.message %></p>
+		<p><%= tweet.message.html_safe %></p>
 	<% end %>	
 </div>

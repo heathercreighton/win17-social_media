@@ -1,0 +1,17 @@
+<div>
+	<h1>Here are tweets with the phrase <%= @tag.phrase %></h1>
+</div>
+
+<div>
+	<% @tag.tweets.order(created_at: :desc).each do |tweet| %>
+
+		<div class="well">
+		<p>
+			<%= tweet.user.name %> <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user_id) %> • <%= time_ago_in_words(tweet.created_at) %>
+		</p>
+		<p>
+			<%= tweet.message.html_safe %>
+		</p>
+	</div>
+		<% end %>
+</div>

@@ -73,7 +73,7 @@
           <!-- This side of the page will contain current_user profile information which will appear on every page -->
             <center>
               <p><%= image_tag current_user.avatar.url, class: "show-pic img-circle" %></p>
-              <h4>You are currently logged in as: </h4>
+              <h4>Currently logged in as: </h4>
               <p><strong><%= link_to current_user.name, show_user_path(id: current_user.id) %></strong> @<%= current_user.username %></p>
               <p>Location: <strong><%= current_user.location %></strong></p>
               
