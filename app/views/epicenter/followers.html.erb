@@ -1,0 +1,5 @@
+<h1>Here's All <%= @user.name %>'s followers:</h1>
+
+<%= render 'user_lists' %>
+
+<div><%= link_to "Back to #{@user.name}'s page", show_user_path(id: @user.id), class: 'btn btn-info' %></div>

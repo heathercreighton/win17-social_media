@@ -1,0 +1,5 @@
+<h1>Here's who <%= @user.name %>'s is following:</h1>
+
+<%= render 'user_lists' %>
+
+<div><%= link_to "Back to #{@user.name}'s page", show_user_path(id: @user.id), class: 'btn btn-info' %></div>

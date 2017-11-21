@@ -16,6 +16,11 @@ class EpicenterController < ApplicationController
   	@user = User.find(params[:id])
   end
 
+
+  def all_users
+    @users = User.order(:name)
+  end 
+
   def now_following
   	current_user.following.push(params[:id].to_i)
   	current_user.save
@@ -45,4 +50,27 @@ class EpicenterController < ApplicationController
   def tag_tweets 
   	@tag = Tag.find(params[:id])
   end	
+
+  def following
+    @user = User.find(params[:id])
+    @users =[]
+
+    User.all.each do |user|
+      if @user.following.include?(user.id)
+        @users.push(user)
+      end 
+    end  
+  end 
+
+  def followers
+    @user = User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if user.following.include?(@user.id)
+        @users.push(user)
+      end
+    end
+  end      
+
 end

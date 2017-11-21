@@ -23,7 +23,16 @@
 		  </div>
 		  <div class="media-body">
 		    <h5 class="media-heading">
-					<strong><%= time_ago_in_words(local_time(tweet.created_at)) %> ago, @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %></strong> said... </h5>
+					<strong>
+
+						<% if Time.now - tweet.created_at < 84600 %>
+							<%= time_ago_in_words(local_time(tweet.created_at)) %> ago
+						<% else %>
+							<%= tweet.created_at.strftime('%b%e') %>
+						<% end %>		 
+						 @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
+						 	
+					</strong> said... </h5>
 				<p><%= tweet.message.html_safe %></p>
 
 				<% if current_user.id == tweet.user.id %>

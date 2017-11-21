@@ -49,3 +49,11 @@ en:
             username:
               blank: " is missing.  We need to know what to call you!"
               taken: " must be unique! You can't steal someone elses username!"            
+  datetime:
+    distance_in_words:
+      x_minutes: 
+        one: "1m"
+        other: "%{count}m"
+      about_x_hours:
+        one: "1h"
+        other: "%{count}h"  
